@@ -26,7 +26,7 @@ namespace TIEconomyMod
             float maxMultFromLowDemocracy = Main.settings.spoilsInvestment.maxMultFromLowDemocracy;
 
             //Add money per resource region.
-            float resourceRegionBonusMoney = __instance.currentResourceRegions * moneyMultPerResourceRegion;
+            float resourceRegionBonusMoney = 1f + (__instance.currentResourceRegions * moneyMultPerResourceRegion);
 
             //(by default) Up to 30% extra money at 0 democracy, 0% extra at 10 democracy
             float democracyMult = (1f + maxMultFromLowDemocracy) - (__instance.democracy * (maxMultFromLowDemocracy / 10f));

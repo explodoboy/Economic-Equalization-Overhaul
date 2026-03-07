@@ -1,0 +1,16 @@
+[
+    {
+        "dataName": "Alien",
+        "friendlyName": "Alien",
+        "nationalAIOption": false,
+        "factionName": "AlienCouncil",
+        "economySetting": 1,
+        "unitySetting": 1,
+        "oppressionSetting": 1,
+        "militarySetting": 1,
+        "armySetting": 1,
+        "navySetting": 1,
+        "spaceDefenseSetting": 3,
+        "stoSetting": 1
+    }
+]

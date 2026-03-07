@@ -34,7 +34,7 @@ namespace TIEconomyMod
             float adjustedEffect = baseEffect * (1f - (__instance.democracy * unrestPenaltyMultPerDemocracyLevel));
 
             // For whatever reason, vanilla code explicitly disallows a value that'd go under 0. I'm playing it safe by doing that too.
-            __result = 0f - Mathf.Min(__instance.unrest, baseEffect);
+            __result = Mathf.Min(__instance.unrest, adjustedEffect);
 
 
 

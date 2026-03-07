@@ -1,12 +1,12 @@
 {
   "Id": "EconomyMod",
   "DisplayName": "Economic Equalization Overhaul",
-  "title": "[0.4.90] Economic Equalization Overhaul",
+  "title": "[1.0] Economic Equalization Overhaul",
   "Author": "explodoboy",
   "description": "Modifies the way national economies work, to better represent the way countries of different sizes compare. This version is for the 'experimental' beta.",
-  "Version": "0.2.3",
-  "ManagerVersion": "0.25.0",
-  "GameVersion": "0.4.90",
+  "Version": "0.2.5",
+  "ManagerVersion": "0.32.4",
+  "GameVersion": "1.0.32",
   "AssemblyName": "Assembly/TIEconomyMod.dll",
   "EntryMethod": "TIEconomyMod.Main.Load"
 }

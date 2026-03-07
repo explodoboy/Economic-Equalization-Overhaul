@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using FullSerializer;
+using HarmonyLib;
 using PavonisInteractive.TerraInvicta;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace TIEconomyMod
 
 
             // Bonus to IP for nations with very low IP. Bonus becomes more aggressive as baseIP approaches 0.
+            // The bonus is also used for research, which is otherwise unaffected by IP.
 
             // IPCrutchScaling: How aggressive boost should be; higher values are more steep.
             // At a value of 1, the result is always minIP.
@@ -38,18 +40,35 @@ namespace TIEconomyMod
 
             // IPCrutchMax: Below this amount, the scaling engages. This also has an effect on scaling, particularly for very low baseIP.
 
+            __result = baseIP * GetCrutchMult(__instance);
+
+            return false; //Skip original getter
+        }
+
+        public static float GetCrutchMult(TINationState country)
+        {
+
+            // Settings values are cached for readability.
+            float crutchLimit = Main.settings.investmentPoints.crutchLimit;
+            float crutchAggressiveness = Main.settings.investmentPoints.crutchAggressiveness;
+
+            //ex: 500 billion GDP / 100 billion = 5 IP/month
+            float baseIP = (float)(country.GDP / Tools.GDPPerIP);
+
+            // 
+            float crutchMult;
             if (baseIP < crutchLimit)
             {
-                // baseIP^(1-IPCrutchScaling) * minToTrigger^IPCrutchScaling
-                __result = Mathf.Pow(baseIP, 1 - crutchAggressiveness) * Mathf.Pow(crutchLimit, crutchAggressiveness);
+                // (crutchLimit / baseIP) ^ crutchAggressiveness
+                crutchMult = Mathf.Pow(crutchLimit / baseIP, crutchAggressiveness);
             }
             else
             {
                 // if IP over max, use linear scaling
-                __result = baseIP;
+                crutchMult = 1;
             }
 
-            return false; //Skip original getter
+            return crutchMult;
         }
     }
 }

@@ -5,6 +5,14 @@ using UnityEngine;
 using UnityModManagerNet;
 using static UnityModManagerNet.UnityModManager;
 
+/* When compiling, you'll need:
+* 1. Harmony
+* 2. UnityEngine
+* 3. UnityEngine.CoreModule (Mathf)
+* 4. UnityModManager
+* 5. Assembly-CSharp
+*/
+
 namespace TIEconomyMod
 {
     /// <summary>
@@ -77,11 +85,12 @@ namespace TIEconomyMod
         }
 
         [DrawFields(DrawFieldMask.Public)]
-        public class ResearachProductionSettings
+        public class ResearchProductionSettings
         {
             [Draw("Multiplier to overall research production: (default: 1.0)", Min = 0.0, Precision = 2)] public float researchOffset = 1.0f;
             [Draw("1x bonus at per-capita GDP: (default: 20000.0)", Min = 1.0, Precision = 0)] public float baseResearchAtPCGDP = 20000.0f;
             [Draw("Worst allowed penalty multiplier from low per-capita GDP: (default: 0.6)", DrawType.Slider, Min = 0.0, Max = 1.0, Precision = 2)] public float worstMalus = 0.6f;
+            [Draw("How much research is boosted by the IP crutch: (default: 1.0)", DrawType.Slider, Min = 0.0, Max = 1.0, Precision = 2)] public float crutchOffset = 1.0f;
         }
 
         [DrawFields(DrawFieldMask.Public)]
@@ -189,7 +198,7 @@ namespace TIEconomyMod
         public class Settings : UnityModManager.ModSettings, IDrawable
         {
             [Draw("Investment Points", Collapsible = true)] public InvestmentPointsSettings investmentPoints = new InvestmentPointsSettings();
-            [Draw("Research Production", Collapsible = true)] public ResearachProductionSettings researchProduction = new ResearachProductionSettings();
+            [Draw("Research Production", Collapsible = true)] public ResearchProductionSettings researchProduction = new ResearchProductionSettings();
             [Draw("Economy Investment - GDP", Collapsible = true)] public EconomyInvestmentGDPSettings econonyInvestmentGDP = new EconomyInvestmentGDPSettings();
             [Draw("Economy Investment - Other", Collapsible = true)] public EconomyInvestmentOtherSettings economyInvestmentOther = new EconomyInvestmentOtherSettings();
             [Draw("Welfare Investment", Collapsible = true)] public WelfareInvestmentSettings welfareInvestment = new WelfareInvestmentSettings();
@@ -203,7 +212,7 @@ namespace TIEconomyMod
             [Draw("Military Investment", Collapsible = true)] public MilitaryInvestmentSettings militaryInvestment = new MilitaryInvestmentSettings();
 
             // These settings don't neatly fit into any category, and are thus ungrouped.
-            [Draw("Percentage which control point costs are reduced by techs: (default: 0.15)", DrawType.Slider, Max = 0, Min = 0.2)] public float ControlPointCostReduction = 0.15f;
+            [Draw("Percentage which control point costs are reduced by techs: (default: 0.15)", DrawType.Slider, Max = 0, Min = 0.2, Precision = 2)] public float ControlPointCostReduction = 0.15f;
             [Draw("Region upgrade/decolonize/cleanup threshold multiplier, whole number: (default: 5, requires restart)", Min = 1)] public int regionUpgradeThresholdMult = 5;
 
             public override void Save(UnityModManager.ModEntry modEntry)

@@ -32,7 +32,7 @@ namespace TIEconomyMod
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("ArrivalGovernance")) numTechs++;
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("Accelerando")) numTechs++;
 
-                /* I changed the reduction in control point cost to a flat multiplier. To compensate, I also increased the reduced control point cost. I may modify it further later. */
+                // I changed the reduction in control point cost to a flat multiplier. To compensate, I also increased the reduced control point cost. I may modify it further later.
                 float mult = 1 - (Main.settings.ControlPointCostReduction * numTechs);
 
                 //__result = (float)Mathd.Pow(baseControlCost, power) / __instance.numControlPoints; //Total cost is split across the control points
