@@ -1,0 +1,13 @@
+UI.Nation.IPs=Monthly Investment Points
+UI.Nation.InvestmentPoints=Monthly Investment Points<br/><br/>These represent the nation's economic surplus that can be allocated by factions with Control Points in the Priorities tab. The value is fixed and reduced by the number of armies and navies it fields, enemy occupations of its territory, and high levels of unrest.
+UI.Nation.BaseRIPs=The nation provides a base of {0} Investment Points per month.
+UI.Nation.CurrentRIPs= It currently has {0} available for allocation to various priorities.
+UI.Nation.AdviserBonus=-Faction councilor advisers are increasing this nation's Investment Points value by {0}, for a total bonus of {1}.
+UI.Nation.IPUnrestPenalty=-Unrest is decreasing this nation's Investment Points by {0}, for a total penalty of {1}.
+UI.Nation.BaseSIPs=The nation's GDP provides a base of {0} Simulated IP per month.
+UI.Nation.CrutchSIPs=The nation's GDP (boosted by the crutch) provides a base of {0} Simulated IP per month.
+UI.Nation.ConvertSIPs= One Investment Point is worth {0} sIP.
+UI.Nation.HomeArmiesPenalty=-Armies safe in their home regions are reducing this nation's sIP by {0} per army, for a total penalty of {1}.
+UI.Nation.AwayArmiesPenalty=-Armies deployed away from their home region or conducting operations are reducing this nation's sIP by {0} per army, for a total penalty of {1}.
+UI.Nation.NaviesPenalty=-Navies are reducing this nation's sIP by {0} per navy, for a total penalty of {1}.
+UI.Nation.MilitaryTotalPenalty=-Military upkeep has a combined sIP penalty of {0}. Converted to Investment Points, the penalty is {1}.

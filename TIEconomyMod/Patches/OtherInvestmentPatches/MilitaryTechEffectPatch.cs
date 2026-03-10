@@ -27,7 +27,7 @@ namespace TIEconomyMod
             float miltechPerMiltechLevelBehind = Main.settings.militaryInvestment.miltechPerMiltechLevelBehind;
 
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseMiltech, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseMiltech, __instance);
 
 
             //Additionally, add a catch-up multiplier dependent on how far behind the max tech level the country is

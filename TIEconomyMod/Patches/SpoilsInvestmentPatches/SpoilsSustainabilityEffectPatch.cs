@@ -28,7 +28,7 @@ namespace TIEconomyMod
 
             // Effect is 1/2 that of Environment.
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseSustainability, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseSustainability, __instance);
 
             // Scaling is more aggressive than in Environment. We'll see if this ends up being a good idea.
             float regionMult = 1f + (__instance.currentResourceRegions * sustainabilityMultPerResourceRegion);

@@ -1,5 +1,1 @@
 TIEffectTemplate.description.Effect_ControlCostPow=-Reduces the control cost of nations by 15%; stacks with others linearly.
-UI.Nation.AdviserBonus=-Faction councilor advisers are increasing this nation's Investment Points value by {0}, for a total bonus of {1}.
-UI.Nation.IPUnrestPenalty=-Unrest is decreasing this nation's Investment Points by {0}, for a total penalty of {1}.
-UI.Nation.MilitaryTotalPenalty=-Military upkeep has a combined Investment Point penalty of {0}.
-UI.Nation.OverallPenaltyToIP=-The total penalty to Investment Points is {0}.

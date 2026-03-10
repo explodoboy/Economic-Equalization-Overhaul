@@ -24,7 +24,7 @@ namespace TIEconomyMod
             float baseDemocracy = Main.settings.spoilsInvestment.baseDemocracy;
 
             // Refer to EffectStrength() comments for explanation.
-            __result = Tools.EffectStrength(baseDemocracy, __instance.population);
+            __result = Tools.EffectStrength(baseDemocracy, __instance);
 
             return false; //Skip original getter
         }

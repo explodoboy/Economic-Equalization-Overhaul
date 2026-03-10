@@ -41,7 +41,8 @@ namespace TIEconomyMod
             foreach (TIFactionState item in __instance.FactionsWithControlPoint)
             {
                 // Strength is multiplied by 0.2, to account for much higher IP.
-                __instance.PropagandaOnPop_PerOwnedCP(item.ideology, TemplateManager.global.unityPublicOpinionBaseStrength * __instance.priorityEffectPopScaling * propagandaOffset, (controlPointOfTypeFaction == item) ? TemplateManager.global.religionUnityPublicOpinionBonusStrength : 0);
+                // For more details, refer to SpoilsEffectPatch.cs
+                __instance.PropagandaOnPop_PerOwnedCP(item.ideology, TemplateManager.global.unityPublicOpinionBaseStrength * __instance.priorityEffectPopScaling * propagandaOffset / Tools.IPFactor(__instance), (controlPointOfTypeFaction == item) ? TemplateManager.global.religionUnityPublicOpinionBonusStrength : 0);
             }
 
             // Below as vanilla.

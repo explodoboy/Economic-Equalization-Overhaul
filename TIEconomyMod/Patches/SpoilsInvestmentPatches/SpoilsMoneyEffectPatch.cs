@@ -31,7 +31,9 @@ namespace TIEconomyMod
             //(by default) Up to 30% extra money at 0 democracy, 0% extra at 10 democracy
             float democracyMult = (1f + maxMultFromLowDemocracy) - (__instance.democracy * (maxMultFromLowDemocracy / 10f));
 
-            __result = baseMoney * resourceRegionBonusMoney * democracyMult;
+            // Base funding is scaled by the inverse of the simulated IP factor. Basically, converts real IP to simulated IP and multiplies the returned money by that.
+            // For examples, refer to FundingEffectPatch.cs
+            __result = (baseMoney * resourceRegionBonusMoney * democracyMult) / Tools.IPFactor(__instance);
 
 
             return false; //Skip original getter

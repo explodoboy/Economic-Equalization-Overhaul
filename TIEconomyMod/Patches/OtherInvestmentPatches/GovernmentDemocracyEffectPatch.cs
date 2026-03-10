@@ -27,7 +27,7 @@ namespace TIEconomyMod
             float democracyMultPerEducationLevel = Main.settings.governmentInvestment.democracyMultPerEducationLevel;
 
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseDemocracy, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseDemocracy, __instance);
 
             // Each full point of Education gives +10% Democracy score.
             float educationMult = 1f + (__instance.education * democracyMultPerEducationLevel);

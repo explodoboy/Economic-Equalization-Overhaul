@@ -21,7 +21,7 @@ namespace TIEconomyMod
             float baseInequality = Main.settings.welfareInvestment.baseInequality;
 
             // Refer to EffectStrength() comments for explanation.
-            __result = Tools.EffectStrength(baseInequality, __instance.population);
+            __result = Tools.EffectStrength(baseInequality, __instance);
 
 
 

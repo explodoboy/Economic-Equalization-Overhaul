@@ -26,7 +26,7 @@ namespace TIEconomyMod
             float cohesionPenaltyMultPerEducationAndDemocracyLevel = Main.settings.unityInvestment.cohesionPenaltyMultPerEducationAndDemocracyLevel;
 
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseCohesion, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseCohesion, __instance);
 
             // Democracy and Education incurs a 2.5% malus per point, up to -50%.
             // A combined score of 15 causes the max effect.

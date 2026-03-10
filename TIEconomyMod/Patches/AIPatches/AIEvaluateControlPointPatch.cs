@@ -24,8 +24,8 @@ namespace TIEconomyMod.AIPatches
             float num = 0f;
             TINationState nation = controlPoint.nation;
 
-            //This line adjusted from economyScore^3, which was vanilla GDP in billions, to this, which is modded GDP in billions. Vanilla and modded control points will be evaluated the same given a certain GDP.
-            num += nation.economyScore * 100f;
+            // This line adjusted from economyScore^3, which was vanilla GDP in billions, to this, which is (post-crutch) GDP in billions. Vanilla and modded control points should be evaluated similarly given a certain GDP.
+            num += Tools.GetSimulatedMonthlyIP(nation) * 100f;
 
             //As vanilla
             num += (nation.spaceFlightProgram ? (100f * faction.aiValues.wantSpaceFacilities * faction.aiValues.wantSpaceWarCapability) : 0f);

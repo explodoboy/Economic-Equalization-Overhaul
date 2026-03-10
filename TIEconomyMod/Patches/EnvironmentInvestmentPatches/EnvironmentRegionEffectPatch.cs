@@ -17,8 +17,17 @@ namespace TIEconomyMod
         // Refer to EconomyRegionEffectPatch.cs for specifics on everything that's happening here.
 
         public static int baseCleanupThreshold = 100;
-        public static int cleanupThreshold;
-        public static readonly FieldInfo getCleanupThreshold = AccessTools.Field(typeof(EnvironmentRegionEffectPatch), nameof(cleanupThreshold));
+        public static int CleanupThreshold => (Main.enabled) ? (int)(baseCleanupThreshold * Main.settings.regionUpgradeThresholdMult * Tools.IPFactor(CurrentNation)) : baseCleanupThreshold;
+        public static readonly MethodInfo getCleanupThreshold = AccessTools.PropertyGetter(typeof(EnvironmentRegionEffectPatch), nameof(CleanupThreshold));
+
+        private static TINationState CurrentNation => PriorityPatches.GetCurrentNation();
+        [HarmonyPrefix]
+        public static bool CacheNation(TINationState __instance)
+        {
+            PriorityPatches.SetCurrentNation(__instance);
+
+            return true; // Skip the original getter.
+        }
 
         // Replaces hardcoded variables in OnEnvironmentPriorityComplete(). The tooltip's stated threshold has to be updated separately.
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -28,18 +37,13 @@ namespace TIEconomyMod
             {
                 if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == baseCleanupThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, getCleanupThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, getCleanupThreshold);
                 }
                 else
                 {
                     yield return instruction;
                 }
             }
-        }
-
-        public static void Recalculate()
-        {
-            cleanupThreshold = (Main.enabled) ? baseCleanupThreshold * Main.settings.regionUpgradeThresholdMult : baseCleanupThreshold;
         }
     }
 }

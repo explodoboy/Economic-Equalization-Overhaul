@@ -46,7 +46,7 @@ namespace TIEconomyMod
             } */
 
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseCohesion, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseCohesion, __instance);
 
             // Effect ramps up the higher Democracy is. With default settings, it's 0% at/under 5, 100% at 10.
             float democracyMult = Mathf.Max(0f, cohesionRampupPerDemocracyLevel * (__instance.democracy - minDemocracyForCohesionChange));

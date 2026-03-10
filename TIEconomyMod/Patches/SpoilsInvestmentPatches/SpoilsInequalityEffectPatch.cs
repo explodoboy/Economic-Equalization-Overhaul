@@ -30,7 +30,7 @@ namespace TIEconomyMod
             //Using the same method as with the welfare inequality, this gives me a single investment effect of 166667 / population democracy change
 
             // Refer to EffectStrength() comments for explanation.
-            float inequalityGain = Tools.EffectStrength(baseInequality, __instance.population);
+            float inequalityGain = Tools.EffectStrength(baseInequality, __instance);
             float resourceRegionsMult = 1f * (__instance.currentResourceRegions * inequalityMultPerResourceRegion);
 
             __result = inequalityGain * resourceRegionsMult;

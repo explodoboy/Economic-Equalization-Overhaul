@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static PavonisInteractive.TerraInvicta.TINationState;
 
-/* I'm disabling this file because for the reason on keeping propaganda around, even if it ends up being a bit busted. */
-
 namespace TIEconomyMod
 {
     [HarmonyPatch(typeof(TINationState), "OnSpoilsPriorityComplete")]
@@ -48,11 +46,12 @@ namespace TIEconomyMod
             /* Propaganda Effect:
              * 
              * Neither I nor the original author yet understand what's going on with propaganda enough to understand how it scales with population. The original author disabled it, but I didn't like that. For now, I'm tacking on a x0.2 multiplier until I can understand what's going on there.
+             * Also, it uses simulated IP to help determine strength.
              */
             float strength = (__instance.education + __instance.democracy) * -0.125f;
             foreach (TIFactionState item in __instance.FactionsWithControlPoint)
             {
-                __instance.PropagandaOnPop_PerOwnedCPFraction(item.ideology, strength * propagandaOffset);
+                __instance.PropagandaOnPop_PerOwnedCPFraction(item.ideology, strength * propagandaOffset / Tools.IPFactor(__instance));
             }
 
             // Below as vanilla.

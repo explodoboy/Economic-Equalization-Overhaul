@@ -12,7 +12,7 @@
     "priority_SPO": 1,
     "priority_DEV": 1,
     "priority_FLI": 100,
-    "priority_BOO": 4,
+    "priority_BOO": 2,
     "priority_MC": 50,
     "priority_ARM": 180,
     "priority_NAV": 300,

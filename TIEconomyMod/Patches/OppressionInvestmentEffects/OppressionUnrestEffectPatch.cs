@@ -26,9 +26,9 @@ namespace TIEconomyMod
             float baseUnrest = Main.settings.oppressionInvestment.baseUnrest;
             float unrestPenaltyMultPerDemocracyLevel = Main.settings.oppressionInvestment.unrestPenaltyMultPerDemocracyLevel;
 
-            // VERY powerful for totalitarian nations...especially if they're rich. In practice, no country will get this close unless controlled by the player.
+            // VERY powerful for totalitarian nations...especially if they're rich. In practice, no country will get this close unless controlled (or given to the aliens) by the player.
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseUnrest, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseUnrest, __instance);
 
             // Effect is reduced by Democracy, -10% per full point. At full Democracy, Oppression does nothing to Unrest.
             float adjustedEffect = baseEffect * (1f - (__instance.democracy * unrestPenaltyMultPerDemocracyLevel));

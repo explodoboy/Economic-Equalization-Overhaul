@@ -1,0 +1,31 @@
+[
+	{
+		"dataName": "event_EEO_ExperimentalNotice",
+      "friendlyName": "EEO Experimental Disclaimer",
+		"displayName": "Notice to EEO Players",
+      "requiresAliens": false,
+      "logPublicity": "global",
+      "alertPublicity": "factions",
+      "repeatable": "OncePerCampaign",
+      "numOptions": 1,
+      "forceEvent": true,
+      "reqEventUnlock": false,
+      "targetType": "global",
+      "hitAllQualifyingTargets": true,
+      "firstTargetNotificationOnly": false,
+      "global_cooldown_months": 0,
+      "target_cooldown_months": 0,
+      "targetConditions": [],
+      "eventOptions": [
+         {
+            "baseAIPreference": 1,
+            "outcomes": [
+               {
+                  "weight": 1,
+                  "effectTemplateNames": []
+               }
+            ]
+         }
+      ]
+	}
+]

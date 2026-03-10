@@ -91,15 +91,18 @@
     <Compile Include="Patches\KnowledgeInvestmentPatches\KnowledgeCohesionEffectPatch.cs" />
     <Compile Include="GlobalTools.cs" />
     <Compile Include="Patches\KnowledgeInvestmentPatches\KnowledgeEducationEffectPatch.cs" />
-    <Compile Include="Patches\MissionPatches\MissionGDPDifficultyPatch.cs" />
+    <Compile Include="Patches\NationalValuesPatches\NavyInvestmentUpkeepPatch.cs" />
+    <Compile Include="Patches\NationalValuesPatches\ArmyInvestmentUpkeepPatch.cs" />
     <Compile Include="Patches\OppressionInvestmentEffects\OppressionCohesionEffectPatch.cs" />
     <Compile Include="Patches\OppressionInvestmentEffects\OppressionUnrestEffectPatch.cs" />
     <Compile Include="Patches\OppressionInvestmentEffects\OppressionDemocracyEffectPatch.cs" />
-    <Compile Include="Patches\OtherInvestmentPatches\GovernmentDemocracyEffectPatch.cs" />
-    <Compile Include="Patches\OtherInvestmentPatches\FundingEffectPatch.cs" />
     <Compile Include="Patches\NationalValuesPatches\BaseInvestmentPointPatch.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Patches\OtherInvestmentPatches\BoostEffectPatch.cs" />
+    <Compile Include="Patches\OtherInvestmentPatches\FundingEffectPatch.cs" />
+    <Compile Include="Patches\OtherInvestmentPatches\GovernmentDemocracyEffectPatch.cs" />
     <Compile Include="Patches\OtherInvestmentPatches\MilitaryTechEffectPatch.cs" />
+    <Compile Include="Patches\OtherInvestmentPatches\RequiredInvestmentPointForPriorityPatch.cs" />
     <Compile Include="Patches\UIPatches\PriorityTooltipPatch.cs" />
     <Compile Include="Patches\WelfareInvestmentPatches\WelfareRegionEffectPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +128,8 @@
     <None Include="ModFiles\Templates\TINationTemplate.json" />
     <None Include="ModFiles\Templates\TITechTemplate.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Patches\MissionPatches\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

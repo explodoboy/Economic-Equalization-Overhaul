@@ -78,7 +78,8 @@ namespace TIEconomyMod
         [DrawFields(DrawFieldMask.Public)]
         public class InvestmentPointsSettings
         {
-            [Draw("IP per [n] billion GDP: (default: 100.0)", Min = 1.0, Precision = 1)] public double IPPerGDPBillions = 100.0;
+            [Draw("IP per month given to all countries: (default: 60.0)", Min = 1.0, Precision = 1)] public float IPPerMonth = 60f;
+            [Draw("Simulated IP per [n] billion GDP: (default: 100.0)", Min = 1.0, Precision = 1)] public double IPPerGDPBillions = 100.0;
             [Draw("1x investment scaling at per-capita GDP: (default: 30000.0)", Min = 1.0, Precision = 0)] public float baseEffectStrengthPCGDP = 30000.0f;
             [Draw("IP crutch up to base IP/month of: (default: 50.0)", Min = 0.0, Precision = 1)] public float crutchLimit = 50.0f;
             [Draw("IP crutch scaling aggressiveness: (default: 0.5)", DrawType.Slider, Max = 0, Min = 1.0, Precision = 1)] public float crutchAggressiveness = 0.5f;
@@ -96,13 +97,11 @@ namespace TIEconomyMod
         [DrawFields(DrawFieldMask.Public)]
         public class EconomyInvestmentGDPSettings
         {
-            [Draw("Base GDP change in billions (default: 0.25)", Min = 0.0, Precision = 2)] public float baseChangeBillions = 0.25f;
-            [Draw("GDP growth multiplier from resource/economic regions: (default: 0.1)", Min = 0.0, Precision = 2)] public float growthMultPerSpecialRegion = 0.1f;
-            [Draw("GDP growth multiplier from government level: (default: 0.05)", Min = 0.0, Precision = 2)] public float growthMultPerDemocracyLevel = 0.05f;
-            [Draw("GDP growth multiplier from education level: (default: 0.15)", Min = 0.0, Precision = 2)] public float growthMultPerEducationLevel = 0.15f;
-            [Draw("Maximum GDP growth bonus from low per-capita GDP, as multiplier: (default: 2.0)", Min = 0.0, Precision = 2)] public float maxScaleFactor = 2.0f;
-            [Draw("Base GDP growth diminishment rate, as multiplier: (default: 0.98)", DrawType.Slider, Max = 1.0, Min = 0, Precision = 2)] public float decayFactor = 0.98f;
-            [Draw("Per-capita GDP increments for applying diminishment: (default: 1500)", Min = 1.0, Precision = 0)] public float decayIncrementPerCapitaGDP = 1500.0f;
+            [Draw("Base GDP growth rate at 100% IP investment, as a percentage: (default: 3.00%)", Min = 0.0, Precision = 2)] public float baseAnnualGrowthPercentage = 3.0f;
+            [Draw("GDP growth multiplier per resource/economic regions: (default: 0.1)", Min = 0.0, Precision = 2)] public float growthMultPerSpecialRegion = 0.1f;
+            [Draw("GDP growth multiplier per government level: (default: 0.05)", Min = 0.0, Precision = 2)] public float growthMultPerDemocracyLevel = 0.05f;
+            [Draw("GDP growth multiplier per education level: (default: 0.15)", Min = 0.0, Precision = 2)] public float growthMultPerEducationLevel = 0.15f;
+            [Draw("Doubled GDP growth bonus per [n] per-capita GDP under 1x-scaling PCGDP (by default 30k): (default: 9500)", Min = 0.0, Precision = 2)] public float doubleGrowthBonusIncrement = 9500f;
         }
 
         [DrawFields(DrawFieldMask.Public)]
@@ -167,7 +166,7 @@ namespace TIEconomyMod
         [DrawFields(DrawFieldMask.Public)]
         public class FundingInvestmentSettings
         {
-            [Draw("Flat increase to a country's monthly money resource output, per investment point: (default: 15.0)", Min = 0.0, Precision = 1)] public float fundingAmount = 15.0f;
+            [Draw("Flat increase to a country's monthly money resource output, per simulated investment point: (default: 15.0)", Min = 0.0, Precision = 1)] public float fundingAmount = 15.0f;
         }
 
         [DrawFields(DrawFieldMask.Public)]
@@ -213,7 +212,7 @@ namespace TIEconomyMod
 
             // These settings don't neatly fit into any category, and are thus ungrouped.
             [Draw("Percentage which control point costs are reduced by techs: (default: 0.15)", DrawType.Slider, Max = 0, Min = 0.2, Precision = 2)] public float ControlPointCostReduction = 0.15f;
-            [Draw("Region upgrade/decolonize/cleanup threshold multiplier, whole number: (default: 5, requires restart)", Min = 1)] public int regionUpgradeThresholdMult = 5;
+            [Draw("Region upgrade/decolonize/cleanup threshold multiplier: (default: 5.0)", Min = 0, Precision = 1)] public float regionUpgradeThresholdMult = 5f;
 
             public override void Save(UnityModManager.ModEntry modEntry)
             {
@@ -224,9 +223,6 @@ namespace TIEconomyMod
             public void OnChange()
             {
                 Tools.Recalculate();
-                EconomyRegionEffectPatch.Recalculate();
-                EnvironmentRegionEffectPatch.Recalculate();
-                WelfareRegionEffectPatch.Recalculate();
             }
         }
     }

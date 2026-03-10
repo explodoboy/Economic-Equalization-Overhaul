@@ -24,7 +24,7 @@ namespace TIEconomyMod
 
             // About 35% of (base) Government effect.
             // Refer to EffectStrength() comments for explanation.
-            __result = Tools.EffectStrength(baseDemocracy, __instance.population);
+            __result = Tools.EffectStrength(baseDemocracy, __instance);
 
 
 

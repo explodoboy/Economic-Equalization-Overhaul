@@ -24,7 +24,7 @@ namespace TIEconomyMod
 
             // Cohesion change is a centering effect, drawing it towards 5; additional logis is needed for that.
             // Refer to EffectStrength() comments for explanation.
-            float cohesionChangeAmount = Math.Min(Mathf.Abs(__instance.cohesion - 5f), (Tools.EffectStrength(baseCohesion, __instance.population))); //Calculate the amount of change and prevent overshooting 5
+            float cohesionChangeAmount = Math.Min(Mathf.Abs(__instance.cohesion - 5f), (Tools.EffectStrength(baseCohesion, __instance))); //Calculate the amount of change and prevent overshooting 5
             if (__instance.cohesion > 5f)
             {
                 cohesionChangeAmount *= -1f; //Make it reduce cohesion instead if it's currently above 5

@@ -26,7 +26,10 @@ namespace TIEconomyMod
             //It seems balanced to make the monetary benefit of a funding investment be about equal to that of a spoils investment after a period of 20 game years
             //The funding gained from a funding investment is annual, so an annual income of 15 money is equal to a spoils investment (about 300-400 money) after 20 years
 
-            __result = fundingAmount;
+            // Base funding is scaled by the inverse of the simulated IP factor. Basically, converts real IP to simulated IP and multiplies fundingAmount by that.
+            // For example, if a country has 60 real IP and 120 simulated IP, and fundingAmount is 15, then a single investment will give 30 money.
+            // Conversely, if simulated IP is 30, then the investment will give 7.5 money.
+            __result = fundingAmount / Tools.IPFactor(__instance);
 
             return false; //Skip original getter
         }

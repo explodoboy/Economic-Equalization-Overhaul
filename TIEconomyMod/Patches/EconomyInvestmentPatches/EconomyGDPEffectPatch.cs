@@ -15,64 +15,38 @@ namespace TIEconomyMod
         [HarmonyPrefix]
         public static bool GetEconomyPriorityPerCapitaIncomeChangeOverwrite(ref float __result, TINationState __instance)
         {
-            //This patch changes the economy investment's GDP effect from increasing gdp per capita by a flat(ish) amount, to increasing gdp by a flat(ish) amount and distributing that across the pop as gdp per capita
-            //The most significant change is that GDP growth is dependent on an exponential decay function off of per capita GDP. This makes developing poor countries much more effective than developing rich ones, accounting for all factors
+            // This patch makes the economy investment increase PCGDP by a percentage. The intention is for countries to grow economically at a more consistent (and realistic-feeling) rate compared to vanilla TI or previous versions of EEO.
+            // The intention of this entire formula is for the 2022 USA to grow about 2.5% each year, and for China to grow about 5.5%. This assumes both countries invest about 25% of their IP into economy each year and have zero unrest.
+            // While this implementation means very rich countries can remain permanently ahead of poorer countries, I think it's fine. This is a singleplayer game, after all, and if anyone is going to outgrow everyone else it's always going to be the player.
 
             // If mod has been disabled, abort patch and use original method.
             if (!Main.enabled) { return true; }
 
             // Settings values are cached for readability.
-            float baseChangeBillions = Main.settings.econonyInvestmentGDP.baseChangeBillions;
+            float baseAnnualGrowthAsMult = Main.settings.econonyInvestmentGDP.baseAnnualGrowthPercentage / 100f;
+            float baseMonthlyGrowthAsMult = baseAnnualGrowthAsMult / 12;
+            float baseGrowthRatePerIP = baseMonthlyGrowthAsMult / Main.settings.investmentPoints.IPPerMonth;
+
             float growthMultPerSpecialRegion = Main.settings.econonyInvestmentGDP.growthMultPerSpecialRegion;
             float growthMultPerDemocracyLevel = Main.settings.econonyInvestmentGDP.growthMultPerDemocracyLevel;
             float growthMultPerEducationLevel = Main.settings.econonyInvestmentGDP.growthMultPerEducationLevel;
-            float maxScaleFactor = Main.settings.econonyInvestmentGDP.maxScaleFactor;
-            float decayFactor = Main.settings.econonyInvestmentGDP.decayFactor;
-            float decayIncrementPerCapitaGDP = Main.settings.econonyInvestmentGDP.decayIncrementPerCapitaGDP;
+            float doubleGrowthBonusIncrement = Main.settings.econonyInvestmentGDP.doubleGrowthBonusIncrement;
+            float baseEffectStrengthPCGDP = Main.settings.investmentPoints.baseEffectStrengthPCGDP;
 
-            // Written this way because it's easier for me to modify.
-            float baseGDPChange = baseChangeBillions * 1000000000f;
+            float currentPCGDP = __instance.perCapitaGDP;
 
-            float regionMult = 1f + (__instance.currentResourceRegions * growthMultPerSpecialRegion) + (__instance.numCoreEconomicRegions_dailyCache * growthMultPerSpecialRegion);
-            float democracyMult = 1f + (__instance.democracy * growthMultPerDemocracyLevel);
-            float educationMult = 1f + (__instance.education * growthMultPerEducationLevel);
+            // These multipliers are combined together to create a single bonus, instead of making them all separate multipliers. Things got way too complicated way too fast with all those separate multipliers, and I want something more stable here.
+            float regionMult = (__instance.currentResourceRegions + __instance.numCoreEconomicRegions_dailyCache) * growthMultPerSpecialRegion;
+            float democracyMult = __instance.democracy * growthMultPerDemocracyLevel;
+            float educationMult = __instance.education * growthMultPerEducationLevel;
+            float combinedMult = 1f + regionMult + democracyMult + educationMult;
 
-            // Exponential decay function that gives low-PCGDP countries a considerable boost to growth. Heavily modified from the original mod author's vision.
-            /* This was done because growth simply didn't make sense in the original mod. Poor countries grew WAY too fast, and rich countries were practically stagnant.
-             * Take China and the US (the main countries I balanced this mod around) for example. In the real world, China's GDP 2022-2023 growth percentage was about 66% quicker than in the US. In the original run of this mod, the US had about 15% the growth rate of China.
-             * With this new function, China should have a mostly-accurate natural growth rate compared to the US. More importantly, China still has a lot of potential but isn't so powerful that choosing any other major power is a bad idea.
-             * Note that during testing, China invested 24% of its IP into Economy, and the US invested 21%. This is what the factionless AI does, so that is what I kept it at. Democracy and education have a strong effect on GDP growth, so the US' raw multiplier (at game start) is about half of China's, but after other factors it's ~60%.
-             * I shudder at the thought of what a Full Democracy, 20 Education China would be capable of. China truly #1 LOLOLOL
-             * 
-             * Anyways, the big numbers, at default values:
-             * 200% growth rate at 0 PCGDP
-             * 150% growth rate at 21k PCGDP
-             * 125% growth rate at 35k PCGDP
-             * 100% growth rate at 51k PCGDP
-             *  75% growth rate at 73k PCGDP
-             *  50% growth rate at 102k PCGDP
-             * 
-             * The main takeaway from this is that poor nations get a strong bonus, which drops off relatively quickly. Rich ones get diminishing - but (hopefully) manageable - returns.
-             */
-            float scalingMult = maxScaleFactor * Mathf.Pow(decayFactor, __instance.perCapitaGDP / decayIncrementPerCapitaGDP);
+            // Doubles GDP growth per 7.5k PCGDP under 30k. The value is clamped to a minimum of 1 so rich countries don't experience diminishing returns. This allows very poor countries to catch up quickly.
+            // This also means that countries with high population but poor PCGDP like China and especially India can be used to rapidly scale up boost/mission control/armies. They are really bad at, say, increasing their miltech level, which evens things out IMO. This, obviously, changes when they finally catch up, but that's just how things work in EEO.
+            float scalingMult = Mathf.Max(1f, Mathf.Pow(2f, (baseEffectStrengthPCGDP - currentPCGDP) / doubleGrowthBonusIncrement));
 
-            float modifiedGDPChange = baseGDPChange * regionMult * democracyMult * educationMult * scalingMult;
-
-            __result = modifiedGDPChange / __instance.population;
-
-
-
-
-            // Below is an experiment in making this function change GDP as a percentage rather than 
-            //float baseGDPGrowthPercentage = 3.0f / 100f; //current calculations say: 8.5f
-            //float GTemp = baseGDPGrowthPercentage + (0.77f / 100f); //TEMP, climate change crutch
-            //float GTemp2 = GTemp / 0.23f; //TEMP, should get AI-driven US 3% growth/year
-
-            // Distributes GDP growth across every IP 
-            //float growthPerDay = GTemp / 365;
-            //float growthPerIP = growthPerDay / __instance.economyScore;
-
-            //__result = ((float)__instance.GDP / growthPerIP) / __instance.population;
+            // Multiplies PCGDP by the intended growth percentage per investment, then by the sum of region/democracy/education mults, then by the poor country catch-up mult.
+            __result = currentPCGDP * baseGrowthRatePerIP * combinedMult * scalingMult;
 
 
 

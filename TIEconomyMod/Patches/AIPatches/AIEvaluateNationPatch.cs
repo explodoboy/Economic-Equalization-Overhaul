@@ -19,7 +19,8 @@ namespace TIEconomyMod.AIPatches
             // If mod has been disabled, abort patch and use original method.
             if (!Main.enabled) { return true; }
 
-            float num = nation.economyScore * 100f; //Changed from economyScore^3, which was vanilla GDP in billions, to this, which is modded GDP in billions. Vanilla and modded nations will be evaluated the same given a certain GDP.
+            // Changed from economyScore^3, which was vanilla GDP in billions, to this, which is modded GDP in billions, post-crutch. Vanilla and modded control points should be evaluated similarly given a certain GDP.
+            float num = Tools.GetSimulatedMonthlyIP(nation) * 100f;
 
             //Below as vanilla
             float num2 = 100f * faction.aiValues.wantSpaceFacilities * faction.aiValues.wantSpaceWarCapability;

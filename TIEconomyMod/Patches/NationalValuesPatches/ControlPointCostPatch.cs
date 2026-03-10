@@ -23,7 +23,8 @@ namespace TIEconomyMod
 
             if (__result != 0) //Will be 0 and should stay 0 if the nation's controller is the aliens
             {
-                float baseControlCost = __instance.economyScore; //Total cost to control the entire nation. 1 cost per 1 IP
+                // Total cost to control the entire nation: 1 capacity per 1 IP, AFTER crutch.
+                float baseControlCost = Tools.GetSimulatedMonthlyIP(__instance);
 
                 int numTechs = 0; //Number of control-cost-reducing techs that have been researched
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("ArrivalInternationalRelations")) numTechs++;
@@ -31,11 +32,8 @@ namespace TIEconomyMod
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("GreatNations")) numTechs++;
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("ArrivalGovernance")) numTechs++;
                 if (GameStateManager.GlobalResearch().finishedTechsNames.Contains("Accelerando")) numTechs++;
+                float mult = 1f - (Main.settings.ControlPointCostReduction * numTechs);
 
-                // I changed the reduction in control point cost to a flat multiplier. To compensate, I also increased the reduced control point cost. I may modify it further later.
-                float mult = 1 - (Main.settings.ControlPointCostReduction * numTechs);
-
-                //__result = (float)Mathd.Pow(baseControlCost, power) / __instance.numControlPoints; //Total cost is split across the control points
                 __result = (baseControlCost * mult) / __instance.numControlPoints; //Total cost is split across the control points
             }
         }

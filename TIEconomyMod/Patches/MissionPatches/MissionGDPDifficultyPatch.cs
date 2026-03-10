@@ -20,6 +20,9 @@ namespace TIEconomyMod
         [HarmonyPrefix]
         public static bool GetModifierOverwrite(ref float __result, TICouncilorState attackingCouncilor, TIGameState target = null, float resourcesSpent = 0f, FactionResource resource = FactionResource.None)
         {
+            // This patch has been disabled because the vanilla game has changed how nation difficulty modifiers has been calculated. In short, it's independent from the economyScore variable.
+            // I'm not going to delete it though, in case the devs change it back in the future.
+
             //Patches the default amount of mission difficulty from national economy size for certain missions like control nation
             //Amount of difficulty for a given nation with a given GDP is to be identical in vanilla and this mod
 
@@ -36,7 +39,7 @@ namespace TIEconomyMod
             TINationState nation = YoinkObjectToNation(attackingCouncilor.faction, target);
             if (nation != null)
             {
-                float vanillaEcoScore = (float)Mathd.Pow(nation.economyScore * 100f, 0.33f); //This is the vanilla economyScore the country would have
+                float vanillaEcoScore = (float)Mathd.Pow(nation.GDP / 1000000000.0, TIGlobalConfig.globalConfig.controlPointIPScaling); //This is the vanilla economyScore the country would have
                 __result = vanillaEcoScore * TemplateManager.global.TIMissionModifier_TargetNationGDP_Multiplier;
             }
 

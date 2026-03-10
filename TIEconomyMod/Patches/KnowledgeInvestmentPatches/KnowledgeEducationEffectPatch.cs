@@ -24,9 +24,8 @@ namespace TIEconomyMod
             float maxScaleFactor = Main.settings.knowledgeInvestment.maxScaleFactor;
             float decayFactor = Main.settings.knowledgeInvestment.decayFactor;
 
-            // Refer to EffectStrength() comments for explanation.
-            float baseChange = Tools.EffectStrength(baseEducation, __instance.population);
-
+            // Refer to EffectStrength_PCGDP() comments for explanation.
+            float baseChange = Tools.EffectStrength(baseEducation, __instance);
 
             //Additionally, scale the education change based on current education, using an exponential decay relationship
             //With a multiplier of 4, and a base of 0.87, we get:

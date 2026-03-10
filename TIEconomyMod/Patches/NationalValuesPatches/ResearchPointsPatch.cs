@@ -44,7 +44,7 @@ namespace TIEconomyMod
             float democracyEffect = Mathf.Pow(Mathf.Max(__instance.democracy, 1f), 1f / 6f); // Vanilla; no bonus at 1 democracy, ~147% at 10.
             float cohesionEffect = (1.25f - Mathf.Abs(__instance.cohesion - 5f) / 10f); //Vanilla, get 25% research boost at 5 cohesion, 25% penalty at 0 or 10 cohesion
             float unrestEffect = (1f - __instance.unrest * __instance.unrest * 0.01f); // Vanilla; quadratic penalty curve. Really small malus at low unrest, and complete loss at 10.
-            float crutchMult = (1f * crutchOffset) * BaseInvestmentPointPatch.GetCrutchMult(__instance); // Small countries get a bonus equal to their "small country IP bonus".
+            float crutchMult = (1f * crutchOffset) * Tools.GetCrutchMult(__instance); // Small countries get a bonus equal to their "small country IP bonus".
 
             float advisorBonus = (1f + __instance.adviserScienceBonus); //Vanilla, up to 25% boost at 25 councilor science score
 

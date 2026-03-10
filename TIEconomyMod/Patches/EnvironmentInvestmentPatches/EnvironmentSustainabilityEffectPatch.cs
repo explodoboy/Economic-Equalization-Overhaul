@@ -29,7 +29,7 @@ namespace TIEconomyMod
             float penaltyPerNukedRegion = Main.settings.environmentInvestment.penaltyPerNukedRegion;
 
             // Refer to EffectStrength() comments for explanation.
-            float baseEffect = Tools.EffectStrength(baseSustainability, __instance.population);
+            float baseEffect = Tools.EffectStrength(baseSustainability, __instance);
 
             // Each full point of sustainability give a +10% bonus, up to +100%.
             float sustainabilityMult = 1f + (__instance.sustainability * sustainabilityMultPerSustainabilityLevel);

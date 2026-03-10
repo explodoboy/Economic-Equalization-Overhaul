@@ -25,7 +25,7 @@ namespace TIEconomyMod
 
             // 1/10 effect of Knowledge priority.
             // Refer to EffectStrength() comments for explanation.
-            __result = Tools.EffectStrength(baseEducation, __instance.population);
+            __result = Tools.EffectStrength(baseEducation, __instance);
 
 
 

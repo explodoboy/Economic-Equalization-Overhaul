@@ -17,7 +17,25 @@ namespace TIEconomyMod
     [HarmonyPatch(typeof(PriorityListItemController), "priorityTipStr")]
     public static class PriorityPatches
     {
-        // This ensures that tooltip readouts of region 'upgrade' IP requirements accurately reflect what the mod sets.
+        // Before the function runs, cache the current nation so an accurate tooltip may be displayed.
+        private static TINationState currentNation = null;
+        [HarmonyPrefix]
+        public static bool CacheNation(TINationState nation)
+        {
+            SetCurrentNation(nation);
+
+            return true; // Continue to the original getter.
+        }
+
+        public static void SetCurrentNation(TINationState nation)
+        {
+            currentNation = nation;
+        }
+
+        public static TINationState GetCurrentNation()
+        {
+            return currentNation;
+        }
 
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
@@ -26,23 +44,23 @@ namespace TIEconomyMod
             {
                 if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == EconomyRegionEffectPatch.baseOilThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, EconomyRegionEffectPatch.getOilThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, EconomyRegionEffectPatch.getOilThreshold);
                 }
                 else if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == EconomyRegionEffectPatch.baseMiningThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, EconomyRegionEffectPatch.getMiningThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, EconomyRegionEffectPatch.getMiningThreshold);
                 }
                 else if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == EconomyRegionEffectPatch.baseEconomicThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, EconomyRegionEffectPatch.getEconomicThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, EconomyRegionEffectPatch.getEconomicThreshold);
                 }
                 else if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == WelfareRegionEffectPatch.baseDecolonizeThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, WelfareRegionEffectPatch.getDecolonizeThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, WelfareRegionEffectPatch.getDecolonizeThreshold);
                 }
                 else if (instruction.opcode == OpCodes.Ldc_I4 && (int)instruction.operand == EnvironmentRegionEffectPatch.baseCleanupThreshold)
                 {
-                    yield return new CodeInstruction(OpCodes.Ldsfld, EnvironmentRegionEffectPatch.getCleanupThreshold);
+                    yield return new CodeInstruction(OpCodes.Call, EnvironmentRegionEffectPatch.getCleanupThreshold);
                 }
                 else
                 {
