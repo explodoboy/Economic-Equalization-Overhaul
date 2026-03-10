@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<WorkshopItemInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PublishedFileId>3231009939</PublishedFileId>
+  <Name>[1.0] Economic Equalization Overhaul</Name>
+  <Description>[b]This mod REQUIRES [url=https://www.nexusmods.com/site/mods/21]Unity Mod Manager[/url]. Install using the DoorstopProxy method.[/b]
+
+[url="https://steamcommunity.com/sharedfiles/filedetails/?id=3442443447"]Experimental Branch[/url]
+
+[b]The Quick Explanation[/b]
+This mod makes a country's GDP scale to Investment Points linearly; a country with 100x the GDP of another will have 100x the IP. The effects of most investments scale to a nation's population count, or are more consistent between nations. Some priorities have an increased IP cost, because there's a [i]lot[/i] more of them generated across the world.
+
+[b]Philosophy[/b]
+[i]The following section is a complete copy-paste of what the original author of this mod wrote. None of the following is my wording.[/i]
+
+In vanilla Terra Invicta, the way country size, country utility, and country control cost change relative to each other is problematic. A country that is twice the size is not twice as powerful, nor twice as expensive to control. Small countries are arbitrarily good at space programs and military, and large countries are arbitrarily good at welfare and education. These trade-offs are purely the result of game mechanic interactions, and do not capture any reasonable understanding of real life effects of national size, nor create any interesting game strategy trade-offs.
+
+The primary cause of these bad relationships has to do with the cube-root relationship between country GDP and investment points, and with the up to 6 times multiplier on the control cost of a nation its number of control points.
+
+As such, the primary function of this mod is to remove both of those issues. Investment points is a linear function of GDP, as is the control cost of a nation. Surrounding these core changes are a huge number of adjustments to the way national investments work, to account for this change and to otherwise even out the rate that a country's utility changes with its size. In this mod, a country that is twice as large is twice as good, but twice as expensive to control.
+
+In short, the goal of the mod is to remove the unintuitive and unrealistic meta-strategizing that surrounds all choices regarding country management, country unifications, and country prioritization.
+
+[b]Summary of Changes[/b]
+IP generation is now directly proportional to GDP. The rate is 100 billion GDP per IP/month. Controlling a large country more or less defines the meta, which makes unifications extremely powerful. Economic growth also becomes very important.
+* Some investment priorities, such as for building armies and nuclear weapons, cost a lot more IP to reflect the dramatically increased IP production.
+* The cost of control points scale linearly with IP generation. The Arrival International Relations, Unity Movements, Great Nations, Arrival Governance, and Accelerando global technologies each decrease CP cost by 15% each, stacking linearly.
+* Small countries, which by default generate less than 50 IP/month, get a bonus to make them less useless.
+
+Investment priorities have been overhauled to have their effects, for the most part, to be based on the per-capita GDP of a country. For example, the military priority is twice as effective for a country with 60k PCGDP compared to a country with 30k PCGDP. 
+* Priorities with flat effects, such as army/navy building and spoils, don't scale this way. Spoils' effects in particular are more consistent.
+* Education growth now scales based on the education level. Low education levels get a boost, and high education levels experience diminishing returns.
+* Military tech growth increases, linearly, by 50% for every full level a country is behind the global max.
+
+Economy investment in particular now increases GDP by a percentage rather than PCGDP. For large and rich countries, this will look like a very small increase to PCGDP per investment.
+* Poor countries get a boost to the economy priority, while rich countries experience diminishing returns. China, for example, is capable of growing much faster than the USA.
+
+And some other miscellaneous changes, as follows:
+* Research output now scales based on population and education level, rather than a flat 7.5 + education level.
+* The IP tooltip is way more detailed than in vanilla.
+
+There's also a bunch of other smaller changes under the hood that aren't really worth mentioning here.
+
+[b]Installation[/b]
+The intended way to install this mod is via the built-in mod manager, accessible through the "Browse Steam Workshop" button in the Mods menu (in the main menu).
+
+If you subscribe in this Steam Workshop page, you can easily install the mod by clicking the drop-down menu next to the search bar, selecting "Installed", and then looking through the page until you find the mod. There should be a disc icon on the right side; click it, and it'll install.
+
+If you want to download the mod solely through the in-game mod manager, search for the name of the mod. Once you find it, click the download button on the right side of the window. A disc should appear soon after, click that disk and the mod will install.
+
+When adding or removing mods, [b]you have to restart the game for the changes to take effect[/b]. Terra Invicta won't reload for you.
+
+[b]Compatibility[/b]
+* Incompatible with [i]Priority Investment Change Preview[/i]. May crash when hovering over the Investment Points tooltip.
+
+[b]Source Code[/b]
+[url="https://github.com/explodoboy/Economic-Equalization-Overhaul"]GitHub Repo[/url]
+
+[b]License[/b]
+Like the original mod, there is no license. As the original author said: "Do whatever you want with the code or files appearing in this mod."</Description>
+  <IconFileName>[1.0] Economic Equalization Overhaul.png</IconFileName>
+  <Tags>
+    <string>Balance</string>
+  </Tags>
+</WorkshopItemInfo>
